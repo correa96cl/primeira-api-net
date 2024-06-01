@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FirstApiNet.Controllers;
 
-[Route("api/[controller]")]
-[ApiController]
-public class UserController : ControllerBase
+
+public class UserController : BaseController
 {
     [HttpGet]
     [Route("{id}")]
@@ -35,6 +34,7 @@ public class UserController : ControllerBase
             Id = 1,
             Name = request.Name
         };
+        Author = "Marcelo";
 
         return Created(string.Empty, response);
     }
@@ -78,12 +78,21 @@ public class UserController : ControllerBase
             }
         };
 
-        return Ok(response);
+        var key = GetCustomKey();
+
+        return Ok(key);
     }
 
     [HttpPut("change-password")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     public IActionResult ChangePassword([FromBody] RequestChangePasswordJson request)
+    {
+        return NoContent();
+    }
+
+   [HttpPut("change-welisson")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public IActionResult ChangePassword2([FromBody] RequestChangePasswordJson request)
     {
         return NoContent();
     }
